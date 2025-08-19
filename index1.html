@@ -1,0 +1,135 @@
+<!--
+    File: index1.html (Demo Structure)
+    Purpose: Demonstrate basic Vue.js 3 usage with one-way data binding using the Options API.
+    Audience: Complete beginners — every major concept is explained in detail with official Vue documentation links.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!--
+        UTF-8: 
+        Ensures we can display any text, 
+        including special symbols like emoji without issues.
+        Link: https://developer.mozilla.org/en-US/docs/Web/Guide/Localizations_and_character_encodings
+    -->
+    <meta charset="UTF-8">
+    <!--
+        Responsive viewport: Makes the page scale correctly on mobile devices.
+        Without this, websites can appear zoomed out on phones.
+    -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--
+        Linking our external CSS file for shared styles across pages.
+        NOTE:
+        Both of these will work in your project:
+        -   <link rel="stylesheet" href="css/style.css">
+        -   <link rel="stylesheet" href="./css/style.css">
+
+        #1) css/style.css
+            > This is a relative path without the leading ./
+            > Browsers interpret it as "look for the css folder inside the current directory."
+            > Equivalent to ./css/style.css in most cases
+        
+        #2) ./css/style.css
+            > The ./ explicitly means "start from the current directory."
+            > This is more explicit and makes it clear to both the developer 
+            and browser that the file is relative to the current folder
+
+        Second approach is more recomended
+    -->
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Vue.js Lesson 1 - Basic Data Binding</title>
+
+    <!-- 
+        Vue 3 Global Build (runtime + compiler) from CDN
+        Including Vue.js via CDN (Content Delivery Network)
+        We're using the development version for better error messages.
+        Note: In production, use the minified version for performance.
+        Link: https://vuejs.org/guide/quick-start#using-vue-from-cdn
+    -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- Theme toggle buttons -->
+        <div id="buttons">
+            <button id="lightBtn">Light Theme</button>
+            <button id="darkBtn">Dark Theme</button>
+        </div>
+        <!--
+            Root element for Vue app.
+            Vue will control all content inside this div after mounting.
+            Link: https://vuejs.org/guide/essentials/application.html#mounting-the-app
+        -->
+        <div id="app" class="card">
+            <!-- Display reactive data from Vue using mustache syntax -->
+            <!-- 
+        {{ title }} is called "mustache syntax" in Vue. 
+        It is used to display reactive data from the Vue instance. 
+        - Vue automatically replaces {{ title }} with the value of the 'title' variable from data().
+        - If 'title' changes in JavaScript, Vue updates the HTML instantly.
+        Link: https://vuejs.org/guide/essentials/template-syntax.html#text-interpolation
+        -->
+            <h1>{{ title }}</h1>
+            <!-- 
+        Another reactive variable displayed:
+        {{ para }} => Another reactive variable from Vue's data()
+        - Shows that multiple variables can be reactive at the same time
+        -->
+            <p>{{ para }}</p>
+            <!-- 
+            {{ new Date().toLocaleDateString() }} => Using vanilla JavaScript inside mustache
+            - Vue allows simple expressions inside {{ }}
+            - This will display today's date in local format
+            - NOTE: Small JS expressions are okay, but complex logic should go inside data() or methods
+            Link: https://vuejs.org/guide/essentials/template-syntax.html#text-interpolation
+        -->
+            <p>Today's date: {{ new Date().toLocaleDateString() }}</p>
+        </div>
+    </div>
+
+    <script>
+        /*
+        Step 1: Define a Vue application object using the Options API.
+        The Options API organizes your app using an object with built-in options.
+        
+        One of these options is data():
+        - data() is a built-in function in Vue.
+        - It must return an object.
+        - Each property of the returned object becomes a reactive variable.
+        - Reactive means Vue watches them and updates the DOM automatically when they change.
+        Link: https://vuejs.org/guide/essentials/reactivity-fundamentals.html#declaring-reactive-state
+        */
+        const appData = {
+            // data() is called automatically by Vue when creating the app:
+            data() {
+                // Here we return an object with all reactive variables:
+                return {
+                    // title is displayed inside <h1> using {{ title }}
+                    title: "Welcome to Vue.js!",
+
+                    // para is displayed inside <p> using {{ para }}
+                    para: "This is our first reactive variable using Vue 3."
+                };
+            }
+        };
+
+        /*
+        Step 2: Create and mount the Vue app
+        - Vue.createApp(appData) => creates a new Vue application instance
+        - .mount("#app") => connects it to the HTML element with id="app"
+        After mounting, Vue will watch all reactive variables in data() 
+        and automatically update the DOM wherever we used them.
+        Link: https://vuejs.org/guide/essentials/application.html#mounting-the-app
+        */
+        Vue.createApp(appData).mount("#app");
+    </script>
+
+    <!-- Our JS file for Theme toggle logic -->
+    <script src="js/script.js"></script>
+</body>
+
+</html>

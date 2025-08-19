@@ -1,0 +1,107 @@
+<!--
+    File: index2.html
+    Lesson: 2 - Two-Way Binding with v-model
+    Project: vue-todo-lesson
+    Purpose: Demonstrate how to bind input fields to reactive data in Vue 3 using v-model.
+    Audience: Complete beginners — each concept explained with links to official Vue documentation.
+    Link:
+        - Forms & v-model: https://vuejs.org/guide/essentials/forms.html#using-v-model
+        - Template Syntax: https://vuejs.org/guide/essentials/template-syntax.html
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Lesson 2 - v-model</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Vue 3 Global Build (runtime + compiler) from CDN -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div id="buttons">
+            <button id="lightBtn">Light Theme</button>
+            <button id="darkBtn">Dark Theme</button>
+        </div>
+        <!--
+        Root element for Vue app.
+        Vue will manage all content inside this div after mounting.
+        Link: https://vuejs.org/guide/essentials/application.html#mounting-the-app
+        -->
+        <div id="app" class="card">
+            <!--
+                h1 displays the reactive variable 'message'
+                - Initially "Type something..."
+                - Will update in real-time as user types in the input below
+            -->
+            <h1>{{ message }}</h1>
+
+            <!--
+            Input element bound to 'message' using v-model
+            - v-model creates **two-way binding**
+            - Two-way binding means:
+                1. Any change in the JS variable 'message' updates the input value
+                2. Any change in the input updates the JS variable 'message'
+            - Very useful for forms, interactive UIs, and live previews
+            Link: https://vuejs.org/guide/essentials/forms.html#using-v-model
+            -->
+            <input type="text" v-model="message" placeholder="Type something here...">
+
+            <!--
+            Displaying the reactive variable again below the input
+            - Shows that typing updates both input and display in real-time
+            -->
+            <p>You typed: {{ message }}</p>
+
+            <!--
+            Demonstrating that expressions still work inside mustache
+            - Using a simple string manipulation here
+            - Uppercase version of the message
+            - Link: https://vuejs.org/guide/essentials/template-syntax.html#text-interpolation
+            -->
+            <p>Uppercase Format: {{ message.toUpperCase() }}</p>
+        </div>
+    </div>
+
+    <script>
+        /*
+            Step 1: Define Vue app using the Options API
+            - data() is a built-in function
+            - Must return an object
+            - Each property of the returned object becomes a reactive variable
+            - Reactive means Vue watches them and updates the DOM automatically
+            Link: https://vuejs.org/guide/essentials/reactivity-fundamentals.html#declaring-reactive-state
+        */
+        const appData = {
+            data() {
+                // Return object with reactive variables
+                return {
+                    // 'message' is bound to the input field using v-model
+                    // Initially set to a placeholder string
+                    message: "Type something..."
+                };
+            }
+        };
+
+        /*
+            Step 2: Create and mount the Vue app
+            - Vue.createApp(appData) creates a new Vue application instance
+            - .mount("#app") attaches it to the HTML element with id="app"
+            - After mounting, Vue will watch the 'message' variable
+              and automatically update both the input and display elements
+            Link: https://vuejs.org/guide/essentials/application.html#mounting-the-app
+        */
+        Vue.createApp(appData).mount("#app");
+    </script>
+
+    <!-- Our JS file for Theme toggle logic -->
+    <script src="js/script.js"></script>
+</body>
+
+</html>

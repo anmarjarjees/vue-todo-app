@@ -1,0 +1,89 @@
+<!--
+    File: index4.html
+    Lesson: 4 - Conditional Rendering with v-if / v-else / v-else-if
+    Project: vue-todo-lesson
+    Purpose: Teach beginners how to show or hide elements dynamically in Vue 3
+    Audience: Complete beginners
+    Link:
+        - Conditional Rendering: https://vuejs.org/guide/essentials/conditional.html
+        - Template Syntax: https://vuejs.org/guide/essentials/template-syntax.html
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Lesson 4 - Conditional Rendering</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div id="buttons">
+            <button id="lightBtn">Light Theme</button>
+            <button id="darkBtn">Dark Theme</button>
+        </div>
+
+        <!-- Root element for Vue app -->
+        <div id="app" class="card">
+            <!--
+                Input field to simulate task count
+                - User can type the number of tasks to see conditional messages
+                - v-model binds input to reactive variable 'taskCount'
+            -->
+            <input type="number" v-model.number="taskCount" min="0" placeholder="Enter number of tasks">
+
+            <!--
+                Conditional rendering with v-if / v-else-if / v-else
+                - Vue evaluates the expressions and shows only the matching block
+                Link: https://vuejs.org/guide/essentials/conditional.html#v-if
+            -->
+            <p v-if="taskCount === 0">No tasks yet. Add your first task!</p>
+            <p v-else-if="taskCount > 0 && taskCount <= 5">You have a few tasks. Keep going!</p>
+            <p v-else>You have many tasks. Stay focused!</p>
+
+            <!--
+                Bonus: Display reactive variable in a heading
+                - Shows that the reactive variable can be used anywhere in the template
+            -->
+            <h2>Total Tasks: {{ taskCount }}</h2>
+        </div>
+    </div>
+
+    <script>
+        /*
+            Step 1: Define Vue app using the Options API
+            - data() contains reactive variables
+            - Reactive variables are automatically tracked by Vue
+            Link: 
+                - Reactivity: https://vuejs.org/guide/essentials/reactivity-fundamentals.html#declaring-reactive-state
+                - Options API: https://vuejs.org/guide/introduction.html#api-styles
+        */
+        const appData = {
+            data() {
+                return {
+                    // 'taskCount' tracks the number of tasks entered by user
+                    // v-model updates this automatically
+                    taskCount: 0
+                };
+            }
+        };
+
+        /*
+            Step 2: Create and mount the Vue app
+            - Vue.createApp(appData) creates a new Vue app instance
+            - .mount("#app") attaches it to the HTML element with id="app"
+            - All reactive variables and conditional rendering now work automatically
+            Link: https://vuejs.org/guide/essentials/application.html#mounting-the-app
+        */
+        Vue.createApp(appData).mount("#app");
+    </script>
+
+    <!-- Shared JS logic (theme toggle etc.) -->
+    <script src="js/script.js"></script>
+</body>
+
+</html>

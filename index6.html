@@ -1,0 +1,103 @@
+<!--
+    File: index6.html
+    Lesson: 6 - Vue Methods & Event Handling
+    Project: vue-todo-app
+    Purpose: Demonstrate how to define methods in Vue 3 and handle user events like button clicks.
+    Audience: Complete beginners — concepts explained with official Vue docs.
+    Link:
+        - Methods: https://vuejs.org/guide/essentials/methods.html
+        - Event Handling: https://vuejs.org/guide/essentials/event-handling.html
+        - Template Syntax: https://vuejs.org/guide/essentials/template-syntax.html
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Lesson 6 - Methods & Event Handling</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div id="buttons">
+            <button id="lightBtn">Light Theme</button>
+            <button id="darkBtn">Dark Theme</button>
+        </div>
+
+        <!-- Vue app root -->
+        <div id="app" class="card">
+            <h1>{{ title }}</h1>
+            <p>{{ para }}</p>
+
+            <!-- Button click demonstration -->
+            <!-- 
+                @click is Vue's directive for handling click events
+                - When the button is clicked, it triggers the 'incrementCounter' method
+                Link: https://vuejs.org/guide/essentials/event-handling.html#listening-to-events
+            -->
+            <button @click="incrementCounter">Increase Times!</button>
+
+            <!-- Display the counter reactive variable -->
+            <p>Button clicked: {{ counter }} times</p>
+
+            <!-- Another method example: Reset counter -->
+            <button @click="resetCounter">Reset Counter</button>
+        </div>
+    </div>
+
+    <script>
+        /*
+            Step 1: Define Vue app using Options API
+            - data() for reactive variables
+            - methods for functions triggered by user events
+            Link:
+            - Methods: https://vuejs.org/guide/essentials/methods.html
+        */
+        const appData = {
+            data() {
+                return {
+                    title: "Vue Methods & Events",
+                    para: "Click buttons to see reactive changes in action!",
+                    counter: 0 // This will track the number of button clicks
+                };
+            },
+            methods: {
+                /*
+                    Step 2: Define incrementCounter method
+                    - This method increases the counter by 1
+                    - Called when the first button is clicked
+                    - Reactive variable 'counter' updates automatically in the DOM
+                */
+                incrementCounter() {
+                    this.counter++;
+                },
+
+                /*
+                    Step 3: Define resetCounter method
+                    - Resets the counter back to 0
+                    - Demonstrates multiple methods inside Vue app
+                */
+                resetCounter() {
+                    this.counter = 0;
+                }
+            }
+        };
+
+        /*
+            Step 4: Create & mount Vue app
+            - Vue.createApp(appData) creates the instance
+            - .mount("#app") connects it to the DOM
+            Link: https://vuejs.org/guide/essentials/application.html#mounting-the-app
+        */
+        Vue.createApp(appData).mount("#app");
+    </script>
+
+    <!-- Our JS file for Theme toggle logic -->
+    <script src="js/script.js"></script>
+</body>
+
+</html>

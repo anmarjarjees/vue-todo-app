@@ -1,0 +1,115 @@
+<!--
+    File: index7.html
+    Lesson: 7 - Adding Delete Functionality to a Task List
+    Project: vue-todo-lesson
+    Purpose: Teach how to remove items from a list using Vue 3
+    Audience: Complete beginners — every concept explained step-by-step with official references
+    Link:
+        - Vue Methods: https://vuejs.org/guide/essentials/methods.html
+        - Event Handling: https://vuejs.org/guide/essentials/event-handling.html
+        - v-for with index: https://vuejs.org/guide/essentials/list.html#mapping-an-array-to-elements-with-v-for
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Lesson 7 - Delete Task</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div id="buttons">
+            <button id="lightBtn">Light Theme</button>
+            <button id="darkBtn">Dark Theme</button>
+        </div>
+
+        <!-- Root element for Vue app -->
+        <div id="app" class="card">
+            <!-- Step 1: Header -->
+            <h1>My Task List</h1>
+
+            <!-- Step 2: Input field bound to newTask variable -->
+            <input type="text" v-model="newTask" placeholder="Add a new task...">
+            <button @click="addTask">Add Task</button>
+
+            <!-- Step 3: Render tasks with v-for -->
+            <ul>
+                <!--
+                    v-for="(task, index) in tasks"
+                    - Loops over tasks array
+                    - task = current item
+                    - index = position in array (0,1,2,...)
+                    Link: https://vuejs.org/guide/essentials/list.html#mapping-an-array-to-elements-with-v-for
+                -->
+                <li v-for="(task, index) in tasks" :key="index">
+                    {{ task }}
+                    <!-- Step 4: Delete button triggers deleteTask method -->
+                    <button @click="deleteTask(index)">Delete</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        /*
+            Step 1: Define Vue app using Options API
+            - Methods are functions that can be called from the template
+            Link: https://vuejs.org/guide/essentials/methods.html
+        */
+        const appData = {
+            data() {
+                return {
+                    // Array to store all tasks
+                    tasks: [],
+
+                    // Bound to the input field for adding new tasks
+                    newTask: ""
+                };
+            },
+            methods: {
+                /*
+                    Step 2: Add a new task
+                    - Push newTask into tasks array
+                    - Clear input field after adding
+                    - Reactive: tasks array updates automatically in DOM
+                    Link: https://vuejs.org/guide/essentials/reactivity-fundamentals.html#declaring-reactive-state
+                */
+                addTask() {
+                    if (this.newTask.trim() !== "") {
+                        this.tasks.push(this.newTask.trim());
+                        this.newTask = "";
+                    }
+                },
+                /*
+                    Step 3: Delete a task
+                    - Use splice() to remove task at given index
+                    - Reactive: DOM updates automatically
+                    Links: 
+                    - MDN splice: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice
+                    - Vue reactivity: https://vuejs.org/guide/essentials/reactivity-fundamentals.html#declaring-reactive-state
+                */
+                deleteTask(index) {
+                    this.tasks.splice(index, 1);
+                }
+            }
+        };
+
+        /*
+            Step 4: Create and mount Vue app
+            - Vue.createApp(appData) creates instance
+            - .mount("#app") connects it to the DOM element
+            Link: https://vuejs.org/guide/essentials/application.html#mounting-the-app
+        */
+        Vue.createApp(appData).mount("#app");
+    </script>
+
+    <!-- Our JS file for Theme toggle logic -->
+    <script src="js/script.js"></script>
+</body>
+
+</html>

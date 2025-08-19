@@ -1,0 +1,104 @@
+<!--
+    File: index5.html
+    Lesson: 5 - Rendering Lists with v-for
+    Project: vue-todo-lesson
+    Purpose: Teach beginners how to render dynamic lists using v-for in Vue 3
+    Audience: Complete beginners
+    Link:
+        - Rendering Lists: https://vuejs.org/guide/essentials/list.html
+        - Template Syntax: https://vuejs.org/guide/essentials/template-syntax.html
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Lesson 5 - v-for</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div id="buttons">
+            <button id="lightBtn">Light Theme</button>
+            <button id="darkBtn">Dark Theme</button>
+        </div>
+
+        <!-- Root element for Vue app -->
+        <div id="app" class="card">
+            <!--
+                Heading for the task list
+            -->
+            <h1>My Tasks</h1>
+
+            <!--
+                Input to add new tasks (optional for later lessons)
+                - Currently we just display pre-defined tasks
+            -->
+            <p>Check your tasks below:</p>
+
+            <!--
+                Rendering a list of tasks using v-for
+                - Vue automatically re-renders the list if the 'tasks' array changes (reactivity in action!)
+                - v-for="(task, index) in tasks" loops through each element in "tasks" array
+                - 'task' is the current item
+                - 'index' is the current item's position in the array
+                - :key="index" is required by Vue for efficient DOM updates
+                Link: https://vuejs.org/guide/essentials/list.html#v-for
+            -->
+            <ul>
+                <li v-for="(task, index) in tasks" :key="index">
+                    {{ index + 1 }}. {{ task }}
+                </li>
+            </ul>
+
+            <!--
+                Optional: Showing number of tasks dynamically
+                - Demonstrates using reactive variables in multiple places
+            -->
+            <p>Total tasks: {{ tasks.length }}</p>
+        </div>
+    </div>
+
+    <script>
+        /*
+            Step 1: Define Vue app using the Options API
+            - data() returns an object with reactive variables
+            - 'tasks' is an array, demonstrating how Vue tracks array changes
+            Link:
+                - Reactivity: https://vuejs.org/guide/essentials/reactivity-fundamentals.html#declaring-reactive-state
+                - Options API: https://vuejs.org/guide/introduction.html#api-styles
+                - Lists & v-for: https://vuejs.org/guide/essentials/list.html
+        */
+        const appData = {
+            data() {
+                return {
+                    // An array of task strings
+                    tasks: [
+                        "Learn Vue basics",
+                        "Build a simple app",
+                        "Understand reactive data",
+                        "Try v-for loops"
+                    ]
+                };
+            }
+        };
+
+        /*
+            Step 2: Create and mount the Vue app
+            - Vue.createApp(appData) creates a new Vue app instance
+            - .mount("#app") connects it to the HTML element with id="app"
+            - All reactive data and list rendering now work automatically
+            Link: https://vuejs.org/guide/essentials/application.html#mounting-the-app
+        */
+        Vue.createApp(appData).mount("#app");
+    </script>
+
+    <!-- Shared JS logic (theme toggle etc.) -->
+    <script src="js/script.js"></script>
+</body>
+
+</html>

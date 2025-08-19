@@ -1,0 +1,167 @@
+/* ========================================
+   Global Wrapper and Body Styles
+   Purpose: Center content, set base layout, apply smooth transitions
+   Applies to both light and dark themes
+   ======================================== */
+
+/* Body styling */
+body {
+    margin: 0;
+    /* Remove default browser margin */
+    padding: 0;
+    /* Remove default padding */
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    /* Readable font */
+    display: flex;
+    /* Flexbox centering */
+    justify-content: center;
+    background-color: #f2e6d9;
+    /* Default Background Color */
+    /* Center horizontally */
+    align-items: center;
+    /* Center vertically */
+    min-height: 100vh;
+    /* Fill full viewport height */
+    line-height: 1.6;
+    /* Improve text readability */
+    transition: background 0.5s, color 0.5s;
+    /* Smooth transition on theme change */
+}
+
+/* ========================================
+   Wrapper styling
+   Purpose: Contain content, card-like appearance, responsive
+   ======================================== */
+.wrapper {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    /* Depth */
+    padding: 30px 40px;
+    /* Breathing space */
+    max-width: 700px;
+    width: 90%;
+    /* Responsive width */
+    text-align: center;
+    /* Center content */
+    border-radius: 12px;
+    /* Soft edges */
+    transition: background 0.5s, color 0.5s, box-shadow 0.5s;
+    /* Smooth theme transition */
+}
+
+/* ========================================
+   Light Theme
+   ======================================== */
+.wrapper.light {
+    background: linear-gradient(145deg, #ffd700, #ffec8b);
+    color: #333;
+}
+
+.wrapper.light h1 {
+    color: #b8860b;
+    font-weight: 700;
+}
+
+.wrapper.light h2 {
+    color: #daa520;
+    font-weight: 600;
+}
+
+.wrapper.light .card {
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* ========================================
+   Dark Theme
+   ======================================== */
+.wrapper.dark {
+    background: linear-gradient(145deg, #181717, #444444);
+    color: #f0e68c;
+}
+
+.wrapper.dark h1 {
+    color: #f0e68c;
+}
+
+.wrapper.dark h2 {
+    color: #ffec8b;
+}
+
+.wrapper.dark .card {
+    background-color: rgba(114, 107, 107, 0.85);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* ========================================
+   Inputs (text fields)
+   Applies to both themes
+   ======================================== */
+input[type="text"] {
+    padding: 10px 15px;
+    font-size: clamp(1rem, 2vw, 1.1rem);
+    /* Responsive font */
+    border-radius: 8px;
+    border: 1px solid #b8860b;
+    margin-top: 15px;
+    width: 80%;
+    max-width: 400px;
+    outline: none;
+    transition: border 0.3s, box-shadow 0.3s;
+    /* Smooth focus effect */
+}
+
+input[type="text"]:focus {
+    border-color: #ffb700;
+    box-shadow: 0 0 8px rgba(255, 183, 0, 0.5);
+    /* Highlight input */
+}
+
+/* ========================================
+   Buttons (Theme Toggle)
+   ======================================== */
+div#buttons {
+    margin-bottom: 15px;
+}
+
+button {
+    padding: 8px 15px;
+    margin: 0 5px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+}
+
+.wrapper.light button {
+    background-color: #ffd700;
+    color: #333;
+}
+
+.wrapper.light button:hover {
+    background-color: #ffec8b;
+}
+
+.wrapper.dark button {
+    background-color: #444;
+    color: #f0e68c;
+}
+
+.wrapper.dark button:hover {
+    background-color: #555;
+}
+
+/* ========================================
+   Footer styling
+   ======================================== */
+footer {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #6b4c00;
+}

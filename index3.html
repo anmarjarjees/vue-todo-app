@@ -1,0 +1,139 @@
+<!--
+    File: index3.html
+    Lesson: 3 - Event Handling with v-on / @click
+    Project: vue-todo-lesson
+    Purpose: Teach beginners how to respond to user events in Vue 3
+    Audience: Complete beginners
+    Link:
+        - Event Handling: https://vuejs.org/guide/essentials/event-handling.html
+        - Template Syntax: https://vuejs.org/guide/essentials/template-syntax.html
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Lesson 3 - Event Handling</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div id="buttons">
+            <button id="lightBtn">Light Theme</button>
+            <button id="darkBtn">Dark Theme</button>
+        </div>
+
+        <!-- Root element for Vue app -->
+        <div id="app" class="card">
+            <!--
+                h1 displays the reactive counter variable
+                - Initially set to 0
+                - Will update automatically when the variable changes
+            -->
+            <h1>Counter: {{ counter }}</h1>
+
+            <!--
+                Button to increment the counter
+                - v-on:click="increment" is the Vue directive to handle click events
+                - @click="increment" is shorthand for v-on:click
+                - When the button is clicked, Vue calls the increment() method
+                Link: https://vuejs.org/guide/essentials/event-handling.html#basic-usage
+            -->
+            <button @click="increment">Increment</button>
+
+            <!--
+                Button to decrement the counter
+                - Calls the decrement() method when clicked
+                - Shows how multiple event handlers can coexist
+            -->
+            <button @click="decrement">Decrement</button>
+
+            <!--
+                Button with inline expression
+                - Demonstrates that small expressions can be used directly in v-on
+                - Here it resets the counter to 0
+                Link: https://vuejs.org/guide/essentials/event-handling.html#inline-statements
+            -->
+            <button @click="counter = 0">Reset</button>
+
+            <!--
+                Display a message reacting to the counter value using Vue conditional rendering:
+                - v-if / v-else-if / v-else are directives used to **conditionally show or hide elements**.
+                - Vue evaluates the expressions inside0 "v-if" and "v-else-if":
+                    > If "counter > 0", the first <p> is displayed.
+                    > If "counter < 0", the second <p> is displayed.
+                    > If neither condition is true (counter === 0), the <p> inside v-else is displayed.
+                - Only one of these elements will be rendered at a time in the DOM.
+                - This is **not the same as JavaScript if-else**; it happens reactively in the template.
+                - Think of it as a "traffic light" that shows different messages depending on the counter's value.
+
+                Link: https://vuejs.org/guide/essentials/conditional.html
+            -->
+
+            <!-- If "counter > 0" => Keep going! Counter is positive. -->
+            <p v-if="counter > 0">Keep going! Counter is positive.</p>
+
+            <!-- If "counter < 0" => Oh! Counter is negative. -->
+            <p v-else-if="counter < 0">Oh! Counter is negative.</p>
+
+            <!-- Else (If neither condition is true so counter === 0) => Counter is zero. -->
+            <p v-else>Counter is zero.</p>
+        </div>
+    </div>
+
+    <script>
+        /*
+            Step 1: Define Vue app using the Options API
+            - data() returns reactive variables
+            - methods contains functions that respond to events
+            Link:
+                - Options API: https://vuejs.org/guide/introduction.html#api-styles
+                - Reactivity fundamentals: https://vuejs.org/guide/essentials/reactivity-fundamentals.html#declaring-reactive-state
+        */
+        const appData = {
+            data() {
+                return {
+                    // Reactive variable to track counter value
+                    counter: 0
+                };
+            },
+            methods: {
+                /*
+                    Increment the counter:
+                    - Increases counter by 1
+                    - "this" refers to the Vue instance
+                    Link: https://vuejs.org/guide/essentials/methods.html
+                */
+                increment() {
+                    this.counter++;
+                },
+                /*
+                    Decrement the counter:
+                    - Decreases counter by 1
+                    - Demonstrates multiple methods inside Vue app
+                */
+                decrement() {
+                    this.counter--;
+                }
+            }
+        };
+
+        /*
+            Step 2: Create and mount the Vue app
+            - Vue.createApp(appData) => creates a new Vue application instance
+            - .mount("#app") => attaches it to the DOM element with id="app"
+            - After mounting, Vue automatically updates the DOM whenever reactive data changes
+            Link: https://vuejs.org/guide/essentials/application.html#mounting-the-app
+        */
+        Vue.createApp(appData).mount("#app");
+    </script>
+
+    <!-- Shared JS logic (theme toggle etc.) -->
+    <script src="js/script.js"></script>
+</body>
+
+</html>
